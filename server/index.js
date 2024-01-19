@@ -1,20 +1,29 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const adminRouter = require("./routes/admin");
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/admin", adminRouter)
-
+app.use('/admin', adminRouter);
 
 // Connect to MongoDB
-// DONT MISUSE THIS THANKYOU!!
-mongoose.connect('mongodb+srv://pranavbedi6:FMpPvAy7UPqviTVu@cluster0.jnfhebk.mongodb.net/', {
-  dbName: "courses"
+mongoose.connect('mongodb+srv://pranavbedi6:FMpPvAy7UPqviTVu@cluster0.jnfhebk.mongodb.net/courses', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err}`);
+});
+
+db.once('open', () => {
+  console.log('Connected to MongoDB');
 });
 
 app.listen(3002, () => console.log('Server running on port 3002'));
