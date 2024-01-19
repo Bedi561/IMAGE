@@ -13,7 +13,6 @@ app.use('/admin', adminRouter);
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://pranavbedi6:FMpPvAy7UPqviTVu@cluster0.jnfhebk.mongodb.net/courses', {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;
